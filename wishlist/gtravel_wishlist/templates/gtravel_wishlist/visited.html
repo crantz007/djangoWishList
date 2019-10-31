@@ -4,7 +4,13 @@
 
 <ul>
     {% for place in visited %}
-    <li>{{place.name}}</li>
+    <li>
+        <a href="{% url 'place_details' place_pk=place.pk %}">
+            {{place.name}}
+
+        </a>
+
+    </li>
     {% endfor %}
 </ul>
 {% else %}
@@ -13,4 +19,4 @@
 
 {% endif %}
 
-<a href="{% url 'places_list' %}">Your wishlist</a>
+<a href="{% url 'places_list' %}"> Your wishlist </a>

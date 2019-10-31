@@ -1,29 +1,37 @@
+{% extends 'gtravel_wishlist/base.html' %}
+{% block content %}
 
 <h2>Travel WishList</h2>
 
 <form method="POST" action="{% url 'places_list' %}">
   {% csrf_token %}
   {{new_place_form}}
-  <button type="submit">ADD</button>
+  <button id="add-new-place" type="submit">ADD</button>
 </form>
 
 {% for place in places %}
 
-  <div>
-    {{place.name}}
-    <form method="POST" action="{% url 'place_was_visited' %}">
+  <div class="wishlist-place">
+    <span id="place-name-{{ place.pk }}" class="place-name">
+      <a href="{% url 'place_details' place_pk=place.pk %}">{{place.name}}</a>
+    </span>
+
+    <form class= "visited-form" method="POST" action="{% url 'place_was_visited' %}">
       {% csrf_token %}
       <input type="hidden" name="pk" value="{{place.pk}}">
-      <button type="submit">Visited!</button>
+      <button id="visited-button-{{ place.pk }}" type="submit">Visited!</button>
     </form>
   </div>
 
 {% empty %}
+
   <p> You have no places in your wishlist</p>
 
 {% endfor %}
 
-<a href="{% url 'places_visited' %}">Places you've visited</a>
+{% endblock %}
+
+
 
 
 
